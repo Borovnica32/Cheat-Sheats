@@ -273,3 +273,5 @@ test('custom assertion', async ({ page }) => {
   await assertColor(page.locator('h1'), 'rgb(0, 0, 0)');
 });
 ```
+
+Source: https://schathurangaj.medium.com/playwright-cheat-sheet-for-newbies-df65142e89c8
