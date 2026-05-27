@@ -1,5 +1,39 @@
 # Basic Playwright Commands
 
+## 1. Create a New Playwright Project
+```cmd
+npm init playwright@latest
+```
+
+## 2. Run Tests
+```cmd
+npx playwright test
+```
+
+## 3. Run Tests in UI Mode
+```cmd
+npx playwright test --ui
+```
+
+## 4. Run Tests in a Specific Browser
+```cmd
+npx playwright test --project=chromium
+```
+
+## 5. Generate Code
+```cmd
+npx playwright codegen
+```
+
+## 6. Show Playwright Report
+```cmd
+npx playwright show-report
+```
+
+---
+
+# Basic Playwright Commands for Element Locators and UI Actions
+
 ## 1. Locating Elements
 ### By ID
 ```ts
@@ -26,7 +60,6 @@ await page.locator('button.submit-button').click();
 await page.locator('//button[contains(text(), "Submit")]').click();
 ```
 
----
 
 ## 2. Additional Element Locators
 ### By text content
@@ -69,7 +102,6 @@ await page.getByAltText('Logo').click();
 await page.getByRole('button').filter({ hasText: 'Submit' }).click();
 ```
 
----
 
 ## 3. UI Actions
 ### Click an element
@@ -116,4 +148,128 @@ await page.setInputFiles('input[type="file"]', 'path/to/file.jpg');
 ### Press a key
 ```ts
 await page.press('#textarea', 'Enter');
+```
+
+---
+
+# Debugging Playwright Tests
+
+## 1. Using the Playwright Inspector
+### Run tests with the inspector
+```cmd
+npx playwright test --debug
+```
+
+### Run a specific test file with the inspector
+```cmd
+npx playwright test example.spec.ts --debug
+```
+
+## 2. Adding Breakpoints in Your Code
+```ts
+// Add a debugger statement where you want to pause
+test('my test', async ({ page }) => {
+  await page.goto('<https://example.com>');
+  debugger; // The test will pause here when running in debug mode
+  await page.click('button');
+});
+```
+
+## 3. Using VS Code for Debugging
+* Install the Playwright Test for VS Code extension.
+* Set breakpoints in your code by clicking on the gutter (the area to the left of the line numbers).
+* Use the VS Code Debug view to run your tests and pause at the breakpoints.
+
+## 4. Debugging Headless Browsers
+```ts
+// In your playwright.config.ts file
+use: {
+  headless: false,
+  slowMo: 1000, // Slows down Playwright operations by 1 second
+}
+```
+
+## 5. Using console.log for Quick Debugging
+```ts
+test('my test', async ({ page }) => {
+  await page.goto('<https://example.com>');
+  const title = await page.title();
+  console.log('Page title:', title); // This will be printed in the console
+  expect(title).toBe('Expected Title');
+});
+```
+
+---
+
+# Assertions in Playwright
+
+## 1. Expect Library
+```ts
+const { expect } = require('@playwright/test');
+test('assertion example', async ({ page }) => {
+  await page.goto('<https://example.com>');
+  
+  // Equality
+  expect(await page.title()).toBe('Example Domain');
+  
+  // Contains
+  expect(await page.textContent('body')).toContain('Example');
+  
+  // Visibility
+  await expect(page.locator('h1')).toBeVisible();
+  
+  // Element state
+  await expect(page.locator('button')).toBeEnabled();
+  
+  // Attribute
+  await expect(page.locator('a')).toHaveAttribute('href', '<https://www.iana.org/domains/example>');
+});
+```
+
+## 2. Page Assertions
+```ts
+test('page assertions', async ({ page }) => {
+  await page.goto('<https://example.com>');
+  
+  // URL assertions
+  await expect(page).toHaveURL('<https://example.com>');
+  
+  // Title assertions
+  await expect(page).toHaveTitle(/Example Domain/);
+});
+```
+
+## 3. Element Assertions
+```ts
+test('element assertions', async ({ page }) => {
+  await page.goto('<https://example.com>');
+  
+  const heading = page.locator('h1');
+  
+  // Text content
+  await expect(heading).toHaveText('Example Domain');
+  
+  // Class
+  await expect(heading).toHaveClass('example-class');
+  
+  // Count
+  await expect(page.locator('p')).toHaveCount(2);
+});
+```
+
+## 4. Custom Assertions
+```ts
+test('custom assertion', async ({ page }) => {
+  await page.goto('<https://example.com>');
+  
+  // Custom assertion function
+  const assertColor = async (element, expectedColor) => {
+    const color = await element.evaluate((el) => {
+      return window.getComputedStyle(el).getPropertyValue('color');
+    });
+    expect(color).toBe(expectedColor);
+  };
+  
+  await assertColor(page.locator('h1'), 'rgb(0, 0, 0)');
+});
 ```
