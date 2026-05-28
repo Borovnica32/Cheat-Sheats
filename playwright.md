@@ -414,7 +414,7 @@ for (const item of body.data) {
 }
 ```
 
-## 10. Combine API + UI (power move)
+## 10. Combine API + UI
 ```ts
 const res = await request.get(API_URL);
 const body = await res.json();
