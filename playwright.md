@@ -274,4 +274,154 @@ test('custom assertion', async ({ page }) => {
 });
 ```
 
-Source: https://schathurangaj.medium.com/playwright-cheat-sheet-for-newbies-df65142e89c8
+--- 
+
+# API & JSON
+
+## 1. Basic API Requests
+### GET request
+```ts
+const response = await request.get('https://api.example.com/data');
+```
+
+### POST request
+```ts
+const response = await request.post('https://api.example.com/login', {
+  form: {
+    username: 'user',
+    password: 'pass'
+  }
+});
+```
+
+### POST JSON
+```ts
+const response = await request.post('https://api.example.com/data', {
+  data: {
+    name: 'test',
+    value: 123
+  }
+});
+```
+
+## 2. Response Handling
+### Status check
+```ts
+expect(response.ok()).toBeTruthy();
+expect(response.status()).toBe(200);
+```
+
+### Convert to JSON
+```ts
+const body = await response.json();
+```
+
+### Get raw text
+```ts
+const text = await response.text();
+```
+
+## 3. JSON Assertions
+### Check field value
+```ts
+expect(body.table).toBe('Samsonite');
+```
+
+### Check array
+```ts
+expect(Array.isArray(body.data)).toBeTruthy();
+```
+
+### Check length
+```ts
+expect(body.data.length).toBeGreaterThan(0);
+```
+
+### Check object property
+```ts
+expect(body.data[0]).toHaveProperty('set_id');
+```
+
+## 4. Searching in JSON
+### Find item
+```ts
+const item = body.data.find(x => x.set_id === '078-1');
+
+expect(item).toBeTruthy();
+```
+
+### Filter items
+```ts
+const filtered = body.data.filter(x => x.theme === 'Star Wars');
+
+expect(filtered.length).toBeGreaterThan(0);
+```
+
+## 5. Response Time Testing
+```ts
+const start = Date.now();
+
+const response = await request.get(API_URL);
+
+const duration = Date.now() - start;
+
+console.log(`Response time: ${duration} ms`);
+
+expect(duration).toBeLessThan(1000);
+```
+
+## 6. File Upload (API)
+```ts
+import fs from 'fs';
+
+const response = await request.post(API_URL, {
+  multipart: {
+    file: {
+      name: 'upload.7z',
+      mimeType: 'application/x-7z-compressed',
+      buffer: fs.readFileSync('upload.7z')
+    }
+  }
+});
+```
+
+## 7. Headers & Auth
+```ts
+Add headers
+const response = await request.get(API_URL, {
+  headers: {
+    Authorization: 'Bearer token'
+  }
+});
+```
+
+## 8. Query Parameters
+```ts
+const response = await request.get(
+  `https://api.com/data?name=Star Wars`
+);
+```
+
+## 9. Advanced Assertions
+```ts
+Check all items have field
+for (const item of body.data) {
+  expect(item).toHaveProperty('name');
+}
+Check values match condition
+for (const item of body.data) {
+  expect(Number(item.year)).toBeGreaterThan(1950);
+}
+```
+
+## 10. Combine API + UI (power move)
+```ts
+const res = await request.get(API_URL);
+const body = await res.json();
+
+const firstItem = body.data[0];
+
+await page.goto('http://your-ui');
+
+await expect(page.getByText(firstItem.name)).toBeVisible();
+```
