@@ -293,6 +293,11 @@ const response = await request.post('https://api.example.com/login', {
   }
 });
 ```
+**What gets sent:**
+Content-Type: application/x-www-form-urlencoded
+
+**Body:**
+username=user&password=pass
 
 ### POST JSON
 ```ts
@@ -302,6 +307,16 @@ const response = await request.post('https://api.example.com/data', {
     value: 123
   }
 });
+```
+**What gets sent:**
+Content-Type: application/json
+
+**Body:**
+```json
+{
+  "name": "test",
+  "value": 123
+}
 ```
 
 ## 2. Response Handling
@@ -414,7 +429,7 @@ for (const item of body.data) {
 }
 ```
 
-## 10. Combine API + UI
+## 10. Combine API + UI (power move)
 ```ts
 const res = await request.get(API_URL);
 const body = await res.json();
