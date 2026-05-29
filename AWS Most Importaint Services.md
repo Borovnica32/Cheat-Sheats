@@ -4,7 +4,7 @@
 
 
 | Category | Service | Key Features & Use Cases |
-|-----------------------------------------------|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+|----------|---------|--------------------------|
 | **DNS & Traffic Management**| **Route 53** | Domain registration, DNS management, health checks, geographic & latency-based routing, failover configuration. |
 | **Storage** | **S3 (Simple Storage Service)** | Object/blob storage for static content such as images, HTML, files; event triggers integration with Lambda. |
 | **Storage** | **EFS (Elastic File System)** | Shared file storage mountable by multiple EC2 instances for static content sharing. |
