@@ -274,6 +274,19 @@ test('custom assertion', async ({ page }) => {
 });
 ```
 
+## Soft VS Hard except
+### Soft except
+If it fails, the test continues executing other assertions. All failures are reported at the end of the test.
+```ts
+expect.soft(value)
+```
+
+### Hard except
+If it fails, the test stops immediately at that point and the test fails.
+```ts
+expect(value)
+```
+
 --- 
 
 # API & JSON
