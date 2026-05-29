@@ -357,6 +357,18 @@ expect(body.data.length).toBeGreaterThan(0);
 expect(body.data[0]).toHaveProperty('set_id');
 ```
 
+### API Assertion
+```ts
+await test.step('Assertion name', async() => {
+  try{
+    // Try logic
+  } catch(e) {
+    // Catch Logic
+    throw e;
+  }
+});
+```
+
 ## 4. Searching in JSON
 ### Find item
 ```ts
