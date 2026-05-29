@@ -5,9 +5,9 @@
 
 | Category                                      | Service                                         | Key Features & Use Cases                                                                                         |
 |-----------------------------------------------|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| **DNS & Traffic Management**                  | **Route 53**                                    | Domain registration, DNS management, health checks, geographic & latency-based routing, failover configuration.  |
-| **Storage**                                   | **S3 (Simple Storage Service)**                 | Object/blob storage for static content such as images, HTML, files; event triggers integration with Lambda.      |
-|                                               | **EFS (Elastic File System)**                   | Shared file storage mountable by multiple EC2 instances for static content sharing.                              |
+| **DNS & Traffic Management**| **Route 53**                                    | Domain registration, DNS management, health checks, geographic & latency-based routing, failover configuration.  |
+| **Storage**| **S3 (Simple Storage Service)**                 | Object/blob storage for static content such as images, HTML, files; event triggers integration with Lambda.      |
+|**Storage**| **EFS (Elastic File System)**                   | Shared file storage mountable by multiple EC2 instances for static content sharing.                              |
 |                                               | **EBS (Elastic Block Store)**                   | Block storage attached to single EC2 instances, suited for databases and transactional workloads.                |
 | **Content Delivery**                          | **CloudFront**                                  | CDN service for caching and replicating S3 content globally to reduce latency and improve user experience.       |
 | **Compute**                                   | **EC2 (Elastic Compute Cloud)**                 | Flexible virtual servers with OS choice; requires manual management (patching, scaling, teardown, avalibility).  |
