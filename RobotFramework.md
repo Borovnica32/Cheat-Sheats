@@ -197,6 +197,22 @@ Wait
     # Use "wait for list of waits"
 ```
 
+### 8. File Upload
+```robot
+*** Test Cases ***
+Choose File    xpath://input[@type="file"]    C:/Path/To/Your/file.file
+```
+
+### File Download (Using Selenium Library)
+```robot
+*** Test Cases ***
+Open Browser    https://example.com/download    edge
+
+# Download from first link
+# Click Element   xpath://a[contains(text(),"Download")][1]
+Click Element    xpath:(//a[contains(., "Download")])[1]
+```
+
 ## Assertions (Validations)
 ### 1. Title Check
 ```robot
